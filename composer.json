@@ -1,0 +1,46 @@
+{
+  "name": "slakbal/slakstrap",
+  "description": "Twitter Bootstrap 4 beta markup generator for laravel",
+  "license": "MIT",
+  "keywords": [
+    "bootstrap",
+    "laravel"
+  ],
+  "authors": [
+    {
+      "name": "Leslie Price",
+      "email": "leslie.price78@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "laravelcollective/html": "^5",
+    "illuminate/support": "~5",
+    "illuminate/config": "~5",
+    "illuminate/routing": "~5",
+    "twbs/bootstrap": "~4"
+  },
+  "require-dev": {
+    "orchestra/testbench": "*",
+    "phpunit/phpunit": "~5.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Slakbal\\Slakstrap\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Slakbal\\Slakstrap\\Test\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Slakbal\\Slakstrap\\SlakstrapServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable"
+}
