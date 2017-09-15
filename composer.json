@@ -41,6 +41,5 @@
         "Slakbal\\Slakstrap\\SlakstrapServiceProvider"
       ]
     }
-  },
-  "minimum-stability": "stable"
+  }
 }
