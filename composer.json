@@ -16,9 +16,6 @@
   "require": {
     "php": "^7.0",
     "laravelcollective/html": "^5",
-    "illuminate/support": "~5",
-    "illuminate/config": "~5",
-    "illuminate/routing": "~5",
     "twbs/bootstrap": "v4.0.0-beta"
   },
   "require-dev": {
