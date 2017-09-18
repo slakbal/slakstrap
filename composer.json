@@ -1,6 +1,6 @@
 {
   "name": "slakbal/slakstrap",
-  "description": "Twitter Bootstrap 4 beta markup generator for laravel",
+  "description": "Twitter Bootstrap 4-beta markup generator for laravel",
   "license": "MIT",
   "keywords": [
     "bootstrap",
