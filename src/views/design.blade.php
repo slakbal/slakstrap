@@ -33,7 +33,7 @@
             {!! Form::textarea('textarea', $value = '', $label = 'Textarea', $options = [], $help = null) !!}
             {!! Form::dropdown('size', $list = ['L' => 'Large', 'S' => 'Small'], $selected = null, $label = 'Size', $selectAttributes = ['placeholder' => 'Pick a size...'], $optionsAttributes = [], $help = 'make a selection') !!}
             {!! Form::checkbox('checkbox', $value = 1, $label = 'newsletter', $checked = false, $options = [], $help="by checking the select box you agree") !!}
-            {!! Form::radio('radio', $value = 1, $label = 'radio', $checked = true, $options = [], $help="by checking the radio you agree") !!}
+            {!! Form::radio('radio', $value = 1, $label = 'radio', $checked = false, $options = [], $help="by checking the radio you agree") !!}
             {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right']) !!}
 
             {!! Form::close() !!}

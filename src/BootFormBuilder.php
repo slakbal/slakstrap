@@ -168,7 +168,7 @@ class BootFormBuilder extends CollectiveFormBuilder
      */
     private function wrapCheckable($name, $label, $checkAble, $options = [], $help = null)
     {
-        return '<div' . $this->html->attributes($this->determineState($name, ['class'=>'form-check'])) . '><label' . $this->html->attributes($this->determineState($name, ['class'=>'form-check-label'])) . '>' . $checkAble . ' ' . $label . '</label>'.$this->subLabel($name, $help).'</div>';
+        return '<div class="form-group"><div' . $this->html->attributes($this->determineState($name, ['class'=>'form-check'])) . '><label' . $this->html->attributes($this->determineState($name, ['class'=>'form-check-label'])) . '>' . $checkAble . ' ' . $label . '</label>'.$this->subLabel($name, $help).'</div></div>';
     }
 
 
@@ -231,7 +231,7 @@ class BootFormBuilder extends CollectiveFormBuilder
         $errors = $this->getErrorsSession();
 
         return $errors->first($this->transformKey($name),
-            '<div for="' . $name . '" class="invalid-feedback">:message</div>');
+            '<div for="' . $name . '" class="invalid-feedback d-block">:message</div>');
     }
 
 
