@@ -2,7 +2,9 @@
 
 namespace Slakbal\Slakstrap;
 
+use Collective\Html\FormFacade;
 use Collective\Html\HtmlServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class SlakstrapServiceProvider extends HtmlServiceProvider
 {
@@ -11,7 +13,7 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false; //must be false for the routes to work
 
 
     /**
@@ -31,27 +33,60 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
             ]);
         }
 
-        //if ($this->app->runningInConsole()) {
-        //    $this->publishes([
-        //        __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/slakstrap'),
-        //    ], 'slakstrap');
-        //}
+        $this->bladeDirectives();
 
-        // Establish Views Namespace
-        //if (is_dir(base_path() . '/resources/views/packages/rydurham/sentinel')) {
-        //    // The package views have been published - use those views.
-        //    $this->loadViewsFrom(base_path() . '/resources/views/packages/rydurham/sentinel', 'Sentinel');
-        //} else {
-        //    // The package views have not been published. Use the defaults.
-        //    $this->loadViewsFrom(__DIR___ . '/../views/bootstrap', 'sentinel');
-        //}
+        $this->customComponents();
+    }
 
 
-        //Form::component('bsInput', '_components.form.input', ['type', 'name', 'label' => null, 'value' => null, 'attributes' => [], 'help' => null]);
-        //
-        //Blade::directive('group', function ($expression) {
-        //    return $expression;
-        //});
+    private function bladeDirectives()
+    {
+        //dd
+        Blade::directive('dd', function ($expression) {
+            return "<?php dd({$expression}); ?>";
+        });
+
+        //dump
+        Blade::directive('dump', function ($expression) {
+            return "<?php dump({$expression}); ?>";
+        });
+
+        //fontawesome
+        Blade::directive('icon', function ($expression) {
+            return "<i class='fa fa-" . $this->stripQuotes($expression) . "' aria-hidden='true'></i>";
+        });
+
+        //set javascript window variable
+        Blade::directive('set', function ($arguments) {
+            list($var, $data) = explode(',', str_replace(['(', ')', ' ', "'"], '', $arguments));
+
+            return "<?php echo \"<script>window['{$var}']= {$data};</script>\" ?>";
+        });
+
+        //inject javascript
+        Blade::directive('script', function ($script) {
+            return "<?php echo \"<script>{$script}</script>\" ?>";
+        });
+
+    }
+
+
+    private function customComponents()
+    {
+        FormFacade::component('bsInput', 'slakstrap::_blade.input', ['type', 'name', 'label' => null, 'value' => null, 'attributes' => [], 'help' => null]);
+    }
+
+
+    /**
+     * Strip single quotes.
+     *
+     * @param  string $expression
+     *
+     * @return string
+     */
+    private static function stripQuotes($expression)
+    {
+        return str_replace("'", '', $expression);
     }
 
 
@@ -75,4 +110,5 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
             return $form->setSessionStore($app['session.store']);
         });
     }
+
 }

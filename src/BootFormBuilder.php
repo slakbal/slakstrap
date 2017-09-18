@@ -7,19 +7,169 @@ use Collective\Html\FormBuilder as CollectiveFormBuilder;
 //Bootstrap 4 beta
 class BootFormBuilder extends CollectiveFormBuilder
 {
-    /**
-     * An array containing the currently opened form groups.
-     *
-     * @var array
-     */
-    protected $groupStack = [];
 
     const GROUP_CLASS = 'form-group';
     const GROUP_ERROR_CLASS = 'novalidate';
     const ERROR_CLASS = 'is-invalid';
     const SUCCESS_CLASS = 'is-valid';
     const CONTROL_CLASS = 'form-control';
+    const FILE_CLASS = 'form-control-file';
+    const SELECT_CLASS = 'form-control';
     const SUBMIT_CLASS = 'btn btn-primary';
+    const CHECKBOX_CLASS = 'form-check-input';
+    const CHECKBOX_GROUP = 'form-check';
+
+
+    public function text($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::text($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function email($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::email($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function password($name, $label = null, $options = ['required'], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::password($name, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function search($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::search($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function tel($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::tel($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function number($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::number($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function date($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::date($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function datetime($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::datetime($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function datetimeLocal($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::datetimeLocal($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function time($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::time($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function url($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, [])
+            . parent::url($name, $value, $options)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function file($name, $label = null, $options = [], $help = null)
+    {
+        return $this->openGroup($name, $label, $options)
+            . parent::file($name, $this->appendClassToOptions(self::FILE_CLASS, $options))
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function textarea($name, $value = null, $label = null, $options = [], $help = null)
+    {
+        $options = $this->determineState($name, $options);
+
+        return $this->openGroup($name, $label, $options)
+            . parent::textarea($name, $value, $this->appendClassToOptions(self::CONTROL_CLASS, $options))
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function dropdown(
+        $name,
+        $list = [],
+        $selected = null,
+        $label = null,
+        array $selectAttributes = [],
+        array $optionsAttributes = [],
+        $help = null
+    ) {
+        $selectAttributes = $this->appendClassToOptions(self::SELECT_CLASS, $selectAttributes);
+
+        $selectAttributes = $this->determineState($name, $selectAttributes);
+
+        return $this->openGroup($name, $label, [])
+            . parent::select($name, $list, $selected, $selectAttributes, $optionsAttributes)
+            . $this->closeGroup($name, $help);
+    }
+
+
+    public function checkbox($name, $value = 1, $label = null, $checked = false, $options = [], $help = null)
+    {
+        return $this->wrapCheckable($name, $label, parent::checkbox($name, $value, $checked, $this->appendClassToOptions(self::CHECKBOX_CLASS, $options)), $options, $help);
+    }
+
+
+    public function radio($name, $value = null, $label = null, $checked = null, $options = [], $help = null)
+    {
+        return $this->wrapCheckable($name, $label, parent::radio($name, $value, $checked, $this->appendClassToOptions(self::CHECKBOX_CLASS, $options)), $options, $help);
+    }
+
+
+    /**
+     * Wrap the given checkable in the necessary wrappers
+     *
+     * @param  mixed  $label
+     * @param  string $type
+     * @param  string $checkAble
+     *
+     * @return string
+     */
+    private function wrapCheckable($name, $label, $checkAble, $options = [], $help = null)
+    {
+        return '<div' . $this->html->attributes($this->determineState($name, ['class'=>'form-check'])) . '><label' . $this->html->attributes($this->determineState($name, ['class'=>'form-check-label'])) . '>' . $checkAble . ' ' . $label . '</label>'.$this->subLabel($name, $help).'</div>';
+    }
 
 
     /**
@@ -31,17 +181,13 @@ class BootFormBuilder extends CollectiveFormBuilder
      *
      * @return string
      */
-    public function openGroup($name, $label = null, $options = [])
+    public function openGroup($name, $label = null, $options = [], $labelOptions = [])
     {
         $options = $this->appendClassToOptions(self::GROUP_CLASS, $options);
 
-        $this->groupStack[] = $name;
-
         $options = $this->determineState($name, $options);
 
-        $label = $label ? $this->label($name, $label) : '';
-
-        return '<div' . $this->html->attributes($options) . '>' . $label;
+        return '<div' . $this->html->attributes($options) . '>' . $this->label($name, $label, $labelOptions);
     }
 
 
@@ -50,25 +196,57 @@ class BootFormBuilder extends CollectiveFormBuilder
      *
      * @return string
      */
-    public function closeGroup()
+    public function closeGroup($name, $help = null)
     {
-        $name = array_pop($this->groupStack);
-        $errors = $this->getFormattedErrors($name);
+        return $this->subLabel($name, $help) . '</div>';
+    }
 
-        return $errors . '</div>';
+
+    public function label($name, $label = null, $options = [], $escape_html = true)
+    {
+        return $label ? parent::label($name, $label = null, $options, $escape_html = true) : '';
+    }
+
+
+    public function subLabel($name, $value = null)
+    {
+        if ($this->hasErrors($name)) {
+            return $this->getFormattedErrors($name);
+        } else {
+            return $value ? $this->toHtmlString('<div for="' . $name . 'SubLabel" class="text-muted small">' . $value . '</div>') : '';
+        }
     }
 
 
     /**
-     * Create a form input
+     * Get the formatted errors for the form element with the given name
      *
-     * @param  string $type
      * @param  string $name
-     * @param  string $value
-     * @param  array  $options
      *
      * @return string
      */
+    private function getFormattedErrors($name)
+    {
+        // Get errors session
+        $errors = $this->getErrorsSession();
+
+        return $errors->first($this->transformKey($name),
+            '<div for="' . $name . '" class="invalid-feedback">:message</div>');
+    }
+
+
+    public function determineState($name, $options)
+    {
+        if ($this->hasErrors($name)) {
+            $options = $this->appendClassToOptions(self::ERROR_CLASS, $options);
+        } elseif (!empty(old($name))) {
+            $options = $this->appendClassToOptions(self::SUCCESS_CLASS, $options);
+        }
+
+        return $options;
+    }
+
+
     public function input($type, $name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions(self::CONTROL_CLASS, $options);
@@ -76,32 +254,6 @@ class BootFormBuilder extends CollectiveFormBuilder
         $options = $this->determineState($name, $options);
 
         return parent::input($type, $name, $value, $options);
-    }
-
-
-    /**
-     * Create a select box
-     *
-     * @param  string $name
-     * @param  array  $list
-     * @param  string $selected
-     * @param  array  $selectAttributes
-     * @param  array  $optionsAttributes
-     *
-     * @return string
-     */
-    public function select(
-        $name,
-        $list = [],
-        $selected = null,
-        array $selectAttributes = [],
-        array $optionsAttributes = []
-    ) {
-        $selectAttributes = $this->appendClassToOptions(self::CONTROL_CLASS, $selectAttributes);
-
-        $optionsAttributes = $this->determineState($name, $optionsAttributes);
-
-        return parent::select($name, $list, $selected, $selectAttributes, $optionsAttributes);
     }
 
 
@@ -144,24 +296,6 @@ class BootFormBuilder extends CollectiveFormBuilder
 
 
     /**
-     * @param $name
-     * @param $options
-     *
-     * @return array
-     */
-    public function determineState($name, $options)
-    {
-        if ($this->hasErrors($name)) {
-            $options = $this->appendClassToOptions(self::ERROR_CLASS, $options);
-        }elseif (!empty(old($name))){
-            $options = $this->appendClassToOptions(self::SUCCESS_CLASS, $options);
-        }
-
-        return $options;
-    }
-
-
-    /**
      * Create a checkable
      *
      * @param  string $type
@@ -181,52 +315,6 @@ class BootFormBuilder extends CollectiveFormBuilder
         $options = $this->determineState($name, $options);
 
         return parent::input($type, $name, $value, $options);
-    }
-
-
-    /**
-     * Create a checkbox
-     *
-     * @param  string $name
-     * @param  mixed  $value
-     * @param  mixed  $label
-     * @param  bool   $checked
-     * @param  array  $options
-     *
-     * @return string
-     */
-    public function checkbox($name, $value = 1, $label = null, $checked = null, $options = [])
-    {
-        $options = $this->determineState($name, $options);
-
-        return $this->wrapCheckable(
-            $label,
-            'checkbox',
-            parent::checkbox($name, $value, $checked, $options)
-        );
-    }
-
-
-    /**
-     * Create a radio button
-     *
-     * @param  string $name
-     * @param  mixed  $value
-     * @param  mixed  $label
-     * @param  bool   $checked
-     * @param  array  $options
-     *
-     * @return string
-     */
-    public function radio($name, $value = null, $label = null, $checked = null, $options = [])
-    {
-        $options = $this->determineState($name, $options);
-
-        return $this->wrapCheckable(
-            $label,
-            'radio',
-            parent::radio($name, $value, $checked, $options)
-        );
     }
 
 
@@ -272,27 +360,6 @@ class BootFormBuilder extends CollectiveFormBuilder
             $label,
             'radio',
             parent::radio($name, $value, $checked, $options)
-        );
-    }
-
-
-    /**
-     * Create a textarea
-     *
-     * @param  string $name
-     * @param  string $value
-     * @param  array  $options
-     *
-     * @return string
-     */
-    public function textarea($name, $value = null, $options = [])
-    {
-        $options = $this->determineState($name, $options);
-
-        return parent::textarea(
-            $name,
-            $value,
-            $this->appendClassToOptions(self::CONTROL_CLASS, $options)
         );
     }
 
@@ -354,7 +421,7 @@ class BootFormBuilder extends CollectiveFormBuilder
      *
      * @return bool
      */
-    private function hasErrors($name)
+    public function hasErrors($name)
     {
         if (is_null($this->session) || !$this->session->has('errors')) {
             return false;
@@ -377,38 +444,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     }
 
 
-    /**
-     * Get the formatted errors for the form element with the given name
-     *
-     * @param  string $name
-     *
-     * @return string
-     */
-    private function getFormattedErrors($name)
-    {
-        if (!$this->hasErrors($name)) {
-            return '';
-        }
-        // Get errors session
-        $errors = $this->getErrorsSession();
 
-        return $errors->first($this->transformKey($name), '<div class="invalid-feedback">:message</div>');
-    }
-
-
-    /**
-     * Wrap the given checkable in the necessary wrappers
-     *
-     * @param  mixed  $label
-     * @param  string $type
-     * @param  string $checkAble
-     *
-     * @return string
-     */
-    private function wrapCheckable($label, $type, $checkAble)
-    {
-        return '<div class="' . $type . '"><label>' . $checkAble . ' ' . $label . '</label></div>';
-    }
 
 
     /**

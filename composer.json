@@ -35,7 +35,11 @@
     "laravel": {
       "providers": [
         "Slakbal\\Slakstrap\\SlakstrapServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Form": "Collective\\Html\\FormFacade",
+        "Html": "Collective\\Html\\HtmlFacade"
+      }
     }
   },
   "minimum-stability": "stable"
