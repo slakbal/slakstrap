@@ -4,7 +4,7 @@ namespace Slakbal\Slakstrap;
 
 use Collective\Html\HtmlServiceProvider;
 
-class FormServiceProvider extends HtmlServiceProvider
+class SlakstrapServiceProvider extends HtmlServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
