@@ -24,14 +24,13 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
 
         require __DIR__ . '/routes/web.php';
 
+        $this->loadViewsFrom(__DIR__ . '/views', 'slakstrap');
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'slakstrap');
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/slakstrap'),
-            ], 'slakstrap');
-        }
+        //if ($this->app->runningInConsole()) {
+        //    $this->publishes([
+        //        __DIR__ . '/resources/views' => $this->app->resourcePath('views/vendor/slakstrap'),
+        //    ], 'slakstrap');
+        //}
 
         // Establish Views Namespace
         //if (is_dir(base_path() . '/resources/views/packages/rydurham/sentinel')) {

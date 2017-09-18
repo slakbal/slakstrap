@@ -3,7 +3,7 @@
 if (!App::environment('production')) {
 
     Route::get('/slakstrap', function () {
-        return view('slakstrap::index');
+        return view('slakstrap');
     });
 
 }
