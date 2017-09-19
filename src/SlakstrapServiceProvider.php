@@ -2,7 +2,7 @@
 
 namespace Slakbal\Slakstrap;
 
-use Collective\Html\FormFacade;
+use Collective\Html\FormFacade as Form;
 use Collective\Html\HtmlServiceProvider;
 use Illuminate\Support\Facades\Blade;
 
@@ -14,6 +14,9 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
      * @var bool
      */
     protected $defer = false; //must be false for the routes to work
+
+
+    protected $form;
 
 
     /**
@@ -68,12 +71,17 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
             return "<?php echo \"<script>{$script}</script>\" ?>";
         });
 
+
+        Blade::directive('subLabel', function ($expression) {
+            return "<?php echo Form::subLabel($expression); ?>";
+        });
+
     }
 
 
     private function customComponents()
     {
-        FormFacade::component('bsInput', 'slakstrap::_blade.input', ['type', 'name', 'label' => null, 'value' => null, 'attributes' => [], 'help' => null]);
+        Form::component('bsInput', 'slakstrap::_blade.input', ['type', 'name', 'label' => null, 'value' => null, 'attributes' => [], 'help' => null]);
     }
 
 
@@ -99,7 +107,7 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
     {
         // Register FormBuilder as singleton instance
         $this->app->singleton('form', function ($app) {
-            $form = new BootFormBuilder(
+            $this->form = new BootFormBuilder(
                 $app['html'],
                 $app['url'],
                 $app['view'],
@@ -107,7 +115,7 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
             );
 
             // Return session store
-            return $form->setSessionStore($app['session.store']);
+            return $this->form->setSessionStore($app['session.store']);
         });
     }
 

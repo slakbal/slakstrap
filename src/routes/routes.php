@@ -14,14 +14,21 @@ if (!App::environment('production')) {
             //dd(request()->all());
 
             request()->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
+                'first_name' => 'required|alpha',
+                'last_name' => 'required|alpha',
+                'city' => 'required|alpha',
+                'state' => 'required|alpha',
+                'newsletter' => 'required',
+                'zip' => 'required|numeric|not_in:0',
+                'rating' => 'required|numeric',
                 'business_name' => 'required|min:10',
                 'email' => 'required|email',
                 'password' => 'required|min:5',
                 'search' => 'required',
                 'tel' => 'required',
                 'number' => 'required',
+                'month' => 'required',
+                'year' => 'required',
                 'date' => 'required',
                 'datetime' => 'required',
                 'datetimeLocal' => 'required',

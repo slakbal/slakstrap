@@ -34,11 +34,8 @@ class BootFormBuilder extends CollectiveFormBuilder
     public function openGroup($name, $label = null, $options = [])
     {
         $options = $this->appendClassToOptions(self::GROUP_CLASS, $options);
-
         $this->groupStack[] = $name;
-
         $options = $this->determineState($name, $options);
-
         $label = $label ? $this->label($name, $label) : '';
 
         return '<div' . $this->html->attributes($options) . '>' . $label;
@@ -72,7 +69,6 @@ class BootFormBuilder extends CollectiveFormBuilder
     public function input($type, $name, $value = null, $options = [])
     {
         $options = $this->appendClassToOptions(self::CONTROL_CLASS, $options);
-
         $options = $this->determineState($name, $options);
 
         return parent::input($type, $name, $value, $options);
@@ -98,7 +94,6 @@ class BootFormBuilder extends CollectiveFormBuilder
         array $optionsAttributes = []
     ) {
         $selectAttributes = $this->appendClassToOptions(self::CONTROL_CLASS, $selectAttributes);
-
         $optionsAttributes = $this->determineState($name, $optionsAttributes);
 
         return parent::select($name, $list, $selected, $selectAttributes, $optionsAttributes);
@@ -153,7 +148,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         if ($this->hasErrors($name)) {
             $options = $this->appendClassToOptions(self::ERROR_CLASS, $options);
-        }elseif (!empty(old($name))){
+        } elseif (!empty(old($name))) {
             $options = $this->appendClassToOptions(self::SUCCESS_CLASS, $options);
         }
 
@@ -177,7 +172,6 @@ class BootFormBuilder extends CollectiveFormBuilder
         if ($this->getCheckedState($type, $name, $value, $checked)) {
             $options['checked'] = 'checked';
         }
-
         $options = $this->determineState($name, $options);
 
         return parent::input($type, $name, $value, $options);
@@ -199,11 +193,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         $options = $this->determineState($name, $options);
 
-        return $this->wrapCheckable(
-            $label,
-            'checkbox',
-            parent::checkbox($name, $value, $checked, $options)
-        );
+        return $this->wrapCheckable($label, 'checkbox', parent::checkbox($name, $value, $checked, $options));
     }
 
 
@@ -222,11 +212,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         $options = $this->determineState($name, $options);
 
-        return $this->wrapCheckable(
-            $label,
-            'radio',
-            parent::radio($name, $value, $checked, $options)
-        );
+        return $this->wrapCheckable($label, 'radio', parent::radio($name, $value, $checked, $options));
     }
 
 
@@ -245,11 +231,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         $options = $this->determineState($name, $options);
 
-        return $this->wrapInlineCheckable(
-            $label,
-            'checkbox',
-            parent::checkbox($name, $value, $checked, $options)
-        );
+        return $this->wrapInlineCheckable($label, 'checkbox', parent::checkbox($name, $value, $checked, $options));
     }
 
 
@@ -268,11 +250,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         $options = $this->determineState($name, $options);
 
-        return $this->wrapInlineCheckable(
-            $label,
-            'radio',
-            parent::radio($name, $value, $checked, $options)
-        );
+        return $this->wrapInlineCheckable($label, 'radio', parent::radio($name, $value, $checked, $options));
     }
 
 
@@ -289,11 +267,7 @@ class BootFormBuilder extends CollectiveFormBuilder
     {
         $options = $this->determineState($name, $options);
 
-        return parent::textarea(
-            $name,
-            $value,
-            $this->appendClassToOptions(self::CONTROL_CLASS, $options)
-        );
+        return parent::textarea($name, $value, $this->appendClassToOptions(self::CONTROL_CLASS, $options));
     }
 
 
@@ -339,9 +313,7 @@ class BootFormBuilder extends CollectiveFormBuilder
      */
     private function appendClassToOptions($class, array $options = [])
     {
-        isset($options['class'])
-            ? $options['class'] = $options['class'] . ' ' . $class
-            : $options['class'] = $class;
+        isset($options['class']) ? $options['class'] = $options['class'] . ' ' . $class : $options['class'] = $class;
 
         return $options;
     }

@@ -11,65 +11,228 @@
 <body>
 
 <div class="container">
+
     <div class="row justify-content-md-center mt-5">
         <div class="col-md-8">
 
-            {!! Form::open(['method' => 'post', 'url' => route('slakbal.slakstrap.validate'), 'id' => 'needs-validation', 'novalidate']) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('slakbal.slakstrap.validate'), 'files' => true, 'id' => 'needs-validation', 'novalidate']) !!}
 
-            {!! Form::text('first_name', $value = '', $label = 'First name', $options = ['required'], $help = null) !!}
-            {!! Form::text('last_name', $value = '', $label = 'Last Name', $options = ['required'], $help = null) !!}
-            {!! Form::text('business_name', $value = '', $label = 'Business Name', $options = ['required','placeholder'=>'Business Pty Ltd.'], $help = 'for example Business Pty Ltd.') !!}
-            {!! Form::email('email', $value = '', $label = 'Email', $options = ['required'], $help = null) !!}
-            {!! Form::password('password', $label = 'Password', $options = [], $help = null) !!}
-            {!! Form::search('search', $value = '', $label = 'Search', $options = [], $help = null) !!}
-            {!! Form::tel('tel', $value = '', $label = 'Telephone', $options = [], $help = null) !!}
-            {!! Form::number('number', $value = '', $label = 'Number', $options = [], $help = null) !!}
-            {!! Form::date('date', $value = '', $label = 'Date', $options = [], $help = null) !!}
-            {!! Form::datetime('datetime', $value = '', $label = 'Datetime', $options = [], $help = null) !!}
-            {!! Form::datetimeLocal('datetimeLocal', $value = '', $label = 'DatetimeLocal', $options = [], $help = null) !!}
-            {!! Form::time('time', $value = '', $label = 'Time', $options = [], $help = null) !!}
-            {!! Form::file('file', $label = 'Select a file', $options = [], $help = 'select a file') !!}
-            {!! Form::url('url', $value = '', $label = 'Url', $options = [], $help = null) !!}
-            {!! Form::textarea('textarea', $value = '', $label = 'Textarea', $options = [], $help = null) !!}
-            {!! Form::dropdown('size', $list = ['L' => 'Large', 'S' => 'Small'], $selected = null, $label = 'Size', $selectAttributes = ['placeholder' => 'Pick a size...'], $optionsAttributes = [], $help = 'make a selection') !!}
-            {!! Form::checkbox('checkbox', $value = 1, $label = 'newsletter', $checked = false, $options = [], $help="by checking the select box you agree") !!}
-            {!! Form::radio('radio', $value = 1, $label = 'radio', $checked = false, $options = [], $help="by checking the radio you agree") !!}
+            {!! Form::hidden('hidden_value', 'Hello World') !!}
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="first_name">First name</label>
+                        {!! Form::text('first_name', null, ['placeholder'=>'First name','required']) !!}
+                        @subLabel('first_name', 'Please enter your first name')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="last_name">Last name</label>
+                        {!! Form::text('last_name', null, ['placeholder'=>'Last name','required']) !!}
+                        @subLabel('last_name', 'Please enter your last name')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="file">file</label>
+                        {!! Form::file('file', ['placeholder'=>'file','required']) !!}
+                        @subLabel('file', 'Please enter your file')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="url">url</label>
+                        {!! Form::url('url', null, ['placeholder'=>'http://www.google.com','required']) !!}
+                        @subLabel('url', 'Please enter your url name')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        {!! Form::email('email', null, ['placeholder'=>'E-mail','required']) !!}
+                        @subLabel('email', 'Please enter your email')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        {!! Form::password('password', ['placeholder'=>'Password','required']) !!}
+                        @subLabel('password', 'Please enter your password with at least 5 characters and digits')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <label for="textarea">textarea</label>
+                        {!! Form::textarea('textarea', null, ['placeholder'=>'textarea','required']) !!}
+                        @subLabel('textarea', 'Please enter your textarea')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="telephone">telephone</label>
+                        {!! Form::tel('telephone', null, ['placeholder'=>'telephone','required']) !!}
+                        @subLabel('telephone', 'Please enter your telephone')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="number">number</label>
+                        {!! Form::number('number', null, ['placeholder'=>'number','required']) !!}
+                        @subLabel('number', 'Please enter number')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="date">date</label>
+                        {!! Form::date('date', null, ['placeholder'=>'date','required']) !!}
+                        @subLabel('date', 'Please enter your date')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="datetime">datetime</label>
+                        {!! Form::datetime('datetime', null, ['placeholder'=>'datetime','required']) !!}
+                        @subLabel('datetime', 'Please enter datetime')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="datetimeLocal">datetimeLocal</label>
+                        {!! Form::datetimeLocal('datetimeLocal', null, ['placeholder'=>'datetimeLocal','required']) !!}
+                        @subLabel('datetimeLocal', 'Please enter your datetimeLocal')
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="time">time</label>
+                        {!! Form::time('time', null, ['placeholder'=>'time','required']) !!}
+                        @subLabel('time', 'Please enter time')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                        <label for="color">color</label>
+                        {!! Form::color('color', null, ['placeholder'=>'time','required']) !!}
+                        @subLabel('color', 'Select a color')
+                    </div>
+                </div>
+                <div class="col-md-9 mb-3">
+                    <div class="form-group">
+                        <label for="time">time</label>
+                        {!! Form::time('time', null, ['placeholder'=>'time','required']) !!}
+                        @subLabel('time', 'Please enter time')
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="city">City</label>
+                    {!! Form::text('city', null, ['placeholder'=>'City','required']) !!}
+                    @subLabel('city')
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="state">State</label>
+                    {!! Form::text('state', null, ['placeholder'=>'State','required']) !!}
+                    @subLabel('state')
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="zip">Zip</label>
+                    {!! Form::text('zip', null, ['placeholder'=>'Zip','required']) !!}
+                    @subLabel('zip')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    {!! Form::selectRange('number', 10, 20, null, ['placeholder' => 'Pick a number...']) !!}
+                    @subLabel('number')
+                </div>
+                <div class="col-md-4 mb-3">
+                    {!! Form::selectMonth('month', null, ['placeholder' => 'Pick an month...']) !!}
+                    @subLabel('month')
+                </div>
+                <div class="col-md-4 mb-3">
+                    {!! Form::selectYear('year', \Carbon\Carbon::now()->year, \Carbon\Carbon::now()->addYears(9)->year, null, ['placeholder' => 'Pick an year...']) !!}
+                    @subLabel('year')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {!! Form::select('size', ['L' => 'Large', 'S' => 'Small'], null, ['placeholder' => 'Pick a size...']) !!}
+                    @subLabel('size')
+                </div>
+                <div class="col-md-6 mb-3">
+                    {!! Form::select('animal',['Cats' => ['leopard' => 'Leopard'],'Dogs' => ['spaniel' => 'Spaniel']], null, ['placeholder' => 'Pick an animal...']) !!}
+                    @subLabel('animal')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            {!! Form::checkbox('newsletter', '1', false) !!}
+                            Subscribe me for the newsletter
+                            @subLabel('newsletter', 'Can also have a subLabel')
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 mb-12">
+                            <label for="zip">How would you rate us?</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-12">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    {!! Form::radio('rating', '1', null) !!}
+                                    Bad
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    {!! Form::radio('rating', '2', null) !!}
+                                    Good
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    {!! Form::radio('rating', '3', null) !!}
+                                    Excellent
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-12">
+                            @subLabel('rating')
+                        </div>
+                    </div>
+                </div>
+            </div>
             {!! Form::submit('Submit', ['class' => 'btn btn-lg btn-info pull-right']) !!}
-
             {!! Form::close() !!}
 
-            @icon('bug fa-5x')
+            @dump(old())
 
-            <?php $user=json_encode(['name'=>'leslie']); ?>
-
-            @set(user,$user)
-
-{{--
-@dump('Hello')
-@dd('Hello')
---}}
-
-{{--
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        "use strict";
-        window.addEventListener("load", function() {
-            var form = document.getElementById("needs-validation");
-            form.addEventListener("submit", function(event) {
-                if (form.checkValidity() == false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add("was-validated");
-            }, false);
-        }, false);
-    }());
-</script>
---}}
-
-</div>
-</div>
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
