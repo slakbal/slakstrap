@@ -44,16 +44,6 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
 
     private function bladeDirectives()
     {
-        //dd
-        Blade::directive('dd', function ($expression) {
-            return "<?php dd({$expression}); ?>";
-        });
-
-        //dump
-        Blade::directive('dump', function ($expression) {
-            return "<?php dump({$expression}); ?>";
-        });
-
         //fontawesome
         Blade::directive('icon', function ($expression) {
             return "<i class='fa fa-" . $this->stripQuotes($expression) . "' aria-hidden='true'></i>";
