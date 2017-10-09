@@ -49,6 +49,37 @@ class BootFormBuilder extends CollectiveFormBuilder
     }
 
 
+    public function showAllErrorsExceptFor(array $names = [])
+    {
+        $errors = $this->getErrorsSession();
+
+        if ($errors) {
+            $messages = array_except($errors->messages(), $names);
+
+            $messageString = null;
+
+            foreach ($messages as $key => $value) {
+                $messageString .= $value[0] . '<br/>';
+            }
+
+            return $this->wrapErrorMessages($messageString);
+        }
+
+        return null;
+
+    }
+
+
+    private function wrapErrorMessages($message)
+    {
+        if ($message) {
+            return '<div class="alert alert-danger" role="alert">' . $message . '</div>';
+        }
+
+        return null;
+    }
+
+
     /**
      * Get formatted error string
      *
@@ -60,7 +91,8 @@ class BootFormBuilder extends CollectiveFormBuilder
         // Get errors session
         $errors = $this->getErrorsSession();
 
-        return $errors->first($this->transformKey($name), '<div for="' . $name . '" class="invalid-feedback d-block">:message</div>');
+        return $errors->first($this->transformKey($name),
+            '<div for="' . $name . '" class="invalid-feedback d-block">:message</div>');
     }
 
 
@@ -86,12 +118,18 @@ class BootFormBuilder extends CollectiveFormBuilder
      *
      * @return string
      */
-    public function select($name, $list = [], $selected = null, array $selectAttributes = [], array $optionsAttributes = [])
-    {
+    public function select(
+        $name,
+        $list = [],
+        $selected = null,
+        array $selectAttributes = [],
+        array $optionsAttributes = []
+    ) {
         $selectAttributes = $this->determineState($name, $selectAttributes);
 
         //dump($selectAttributes);
-        return parent::select($name, $list, $selected, $this->appendClassToOptions(self::SELECT_CLASS, $selectAttributes), $optionsAttributes);
+        return parent::select($name, $list, $selected,
+            $this->appendClassToOptions(self::SELECT_CLASS, $selectAttributes), $optionsAttributes);
     }
 
 

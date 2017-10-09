@@ -56,16 +56,14 @@ class SlakstrapServiceProvider extends HtmlServiceProvider
             return "<?php echo \"<script>window['{$var}']= {$data};</script>\" ?>";
         });
 
-        //inject javascript
-        Blade::directive('script', function ($script) {
-            return "<?php echo \"<script>{$script}</script>\" ?>";
-        });
-
-
         Blade::directive('subLabel', function ($expression) {
             return "<?php echo Form::subLabel($expression); ?>";
         });
 
+
+        Blade::directive('showAllErrorsExceptFor', function ($expression) {
+            return "<?php echo Form::showAllErrorsExceptFor($expression); ?>";
+        });
     }
 
 

@@ -190,6 +190,15 @@
                             @subLabel('newsletter', 'Can also have a subLabel')
                         </label>
                     </div>
+
+
+                    <label class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">remember me</span>
+                    </label>
+
+
                 </div>
                 <div class="col-md-6 mb-3">
                     <div class="row">
